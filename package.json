@@ -1,0 +1,31 @@
+{
+  "name": "@leisurelink/optimus-prime",
+  "version": "0.0.0",
+  "description": "Performs transforms for the AppliesTo/Relations array to storage and from storage",
+  "main": "index.js",
+  "scripts": {
+    "test": "_mocha test --recursive --compilers js:babel-core/register",
+    "ci": "npm run lint && npm test",
+    "lint": "esw --quiet",
+    "coverage": "istanbul cover _mocha test -- --compilers js:babel-core/register",
+    "coveralls": "istanbul cover _mocha test --report lcovonly -- --compilers js:babel-core/register -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "build": "babel src -d lib",
+    "prepublish": "npm run build"
+  },
+  "author": "Skylar Castille",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-eslint": "^5.0.0",
+    "babel-preset-es2015": "^6.5.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.6",
+    "eslint": "^1.10.3",
+    "eslint-config-leisurelink": "^1.0.1",
+    "eslint-watch": "^2.1.9",
+    "istanbul": "^v1.0.0-alpha.2",
+    "mocha": "^2.4.5",
+    "mocha-lcov-reporter": "^1.2.0"
+  }
+}

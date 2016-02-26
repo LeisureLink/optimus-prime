@@ -1,0 +1,21 @@
+general:
+  artifacts:
+    - "coverage"
+machine:
+  timezone:
+    America/Denver
+  node:
+    version: 4.2.2
+dependencies:
+  post:
+    - rm -r ~/.gradle
+test:
+  override:
+    - npm run ci
+#deployment:
+#  release:
+#    tag: /v.*/
+#    owner: LeisureLink
+#    commands:
+#      - npm publish
+

@@ -1,0 +1,6 @@
+coverage
+.idea/
+.settings/
+wallaby.js
+index.js
+lib/

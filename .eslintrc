@@ -1,0 +1,10 @@
+{
+  "extends": "eslint-config-leisurelink",
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "modules": true
+  }
+}
