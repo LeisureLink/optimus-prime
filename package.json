@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "_mocha test --recursive --compilers js:babel-core/register",
-    "ci": "npm run lint && npm test",
+    "ci": "npm run lint && npm coverage",
     "lint": "esw --quiet",
-    "coverage": "istanbul cover _mocha test -- --compilers js:babel-core/register",
-    "coveralls": "istanbul cover _mocha test --report lcovonly -- --compilers js:babel-core/register -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "coverage": "istanbul cover _mocha test --report lcovonly -- --compilers js:babel-core/register -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "babel src -d lib",
     "prepublish": "npm run build"
   },

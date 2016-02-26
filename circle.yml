@@ -12,10 +12,10 @@ dependencies:
 test:
   override:
     - npm run ci
-#deployment:
-#  release:
-#    tag: /v.*/
-#    owner: LeisureLink
-#    commands:
-#      - npm publish
+deployment:
+  release:
+    tag: /v.*/
+    owner: LeisureLink
+    commands:
+      - npm publish
 
