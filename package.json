@@ -1,6 +1,6 @@
 {
   "name": "@leisurelink/optimus-prime",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Performs transforms for the AppliesTo/Relations array to storage and from storage",
   "main": "index.js",
   "scripts": {
