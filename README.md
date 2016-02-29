@@ -8,9 +8,9 @@ Npm module for transforming the Relations / AppliesTo arrays to their respective
 let transform = require('optimus-prime');
 
 //Transforms appliesTo to Relations for storage
-transform.toStorage(appliesTo);
+transform.forStorage(appliesTo);
 
 //Transforms Relations to appliesTo when coming out of storage
-transform.forStorage(relations);
+transform.fromStorage(relations);
 ```
 
