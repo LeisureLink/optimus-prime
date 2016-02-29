@@ -1,6 +1,11 @@
 let expect = require('chai').expect;
 let transform = require('../src');
 
+let errorMessages = {
+  nullOrUndefined: 'array-cannot-be-null-or-undefined',
+  unsupportedProperty: 'unsupported-property'
+};
+
 describe('Relations transform', () => {
   let appliesTo = [
     { unitId: 'unit-1' },
@@ -49,7 +54,7 @@ describe('Relations transform', () => {
       appliesTo.push({ 'unsupported-property': 'throw-error' });
       expect(() => {
         transform.forStorage(appliesTo);
-      }).to.throw('unsupported-property');
+      }).to.throw({ statusCode: 400, message: errorMessages.unsupportedProperty });
     });
 
     it('should transform appliesTo correctly', () => {
@@ -60,13 +65,13 @@ describe('Relations transform', () => {
     it('should throw a graceful error if appliesTo is null', () => {
       expect(() => {
         transform.forStorage(null);
-      }).to.throw('array-cannot-be-null-or-undefined');
+      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
     });
 
     it('should throw a graceful error if appliesTo is undefined', () => {
       expect(() => {
         transform.forStorage(undefined);
-      }).to.throw('array-cannot-be-null-or-undefined');
+      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
     });
   });
 
@@ -89,7 +94,7 @@ describe('Relations transform', () => {
       relations.push({ source: 'unsupported-property', sourceId: { badproperty: 'throw error' } });
       expect(() => {
         transform.fromStorage(relations);
-      }).to.throw('unsupported-property');
+      }).to.throw({ statusCode: 400, message: errorMessages.unsupportedProperty });
     });
 
     it('should transform relations correctly', () => {
@@ -100,13 +105,13 @@ describe('Relations transform', () => {
     it('should throw a graceful error if relations is null', () => {
       expect(() => {
         transform.fromStorage(null);
-      }).to.throw('array-cannot-be-null-or-undefined');
+      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
     });
 
     it('should throw a graceful error if relations is undefined', () => {
       expect(() => {
         transform.fromStorage(undefined);
-      }).to.throw('array-cannot-be-null-or-undefined');
+      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
     });
   });
 });

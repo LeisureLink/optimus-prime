@@ -43,27 +43,39 @@ const fromStorageSourceMapping = {
   }
 };
 
+let constructError = (statusCode, message) => {
+  return {
+    statusCode,
+    message
+  };
+};
+
+let errorMessages = {
+  nullOrUndefined: 'array-cannot-be-null-or-undefined',
+  unsupportedProperty: 'unsupported-property'
+};
+
 let forStorage = untransformedSourceList => {
   if(!untransformedSourceList)
-    throw Error('array-cannot-be-null-or-undefined');
+    throw constructError(400, errorMessages.nullOrUndefined);
   return untransformedSourceList.map(untransformedSource => {
     let uniqueKey = Object.keys(untransformedSource).toString();
     try {
       return toStorageSourceMapping[uniqueKey](untransformedSource);
     } catch (err) {
-      throw Error('unsupported-property');
+      throw constructError(400, errorMessages.unsupportedProperty);
     }
   });
 };
 
 let fromStorage = untransformedSourceList => {
   if(!untransformedSourceList)
-    throw Error('array-cannot-be-null-or-undefined');
+    throw constructError(400, errorMessages.nullOrUndefined);
   return untransformedSourceList.map(untransformedSource => {
     try {
       return fromStorageSourceMapping[untransformedSource.source](untransformedSource);
     } catch (err) {
-      throw Error('unsupported-property');
+      throw constructError(400, errorMessages.unsupportedProperty);
     }
   });
 };
