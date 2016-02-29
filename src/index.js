@@ -15,6 +15,12 @@ const toStorageSourceMapping = {
       source: 'unit-rateplan',
       sourceId: untransformedSource.unitId + ':' + untransformedSource.ratePlanId
     };
+  },
+  'pmcId': untransformedSource => {
+    return {
+      source: 'pmcId',
+      sourceId: untransformedSource.pmcId
+    };
   }
 };
 
@@ -28,6 +34,11 @@ const fromStorageSourceMapping = {
     return {
       unitId: untransformedSource.sourceId.split(':')[sourceValueIndex.unitId],
       ratePlanId: untransformedSource.sourceId.split(':')[sourceValueIndex.ratePlanId]
+    };
+  },
+  pmcId: untransformedSource => {
+    return {
+      pmcId: untransformedSource.sourceId
     };
   }
 };
