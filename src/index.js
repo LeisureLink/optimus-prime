@@ -18,7 +18,7 @@ const toStorageSourceMapping = {
   },
   'pmcId': untransformedSource => {
     return {
-      source: 'pmcId',
+      source: 'pmc',
       sourceId: untransformedSource.pmcId
     };
   }
@@ -36,7 +36,7 @@ const fromStorageSourceMapping = {
       ratePlanId: untransformedSource.sourceId.split(':')[sourceValueIndex.ratePlanId]
     };
   },
-  pmcId: untransformedSource => {
+  pmc: untransformedSource => {
     return {
       pmcId: untransformedSource.sourceId
     };

@@ -13,14 +13,14 @@ describe('Relations transform', () => {
     { source: 'unit', sourceId: 'unit-1' },
     { source: 'unit', sourceId: 'unit-2' },
     { source: 'unit-rateplan', sourceId: 'unit-3:rateplan-3' },
-    { source: 'pmcId', sourceId: 'pmc-id-1' }
+    { source: 'pmc', sourceId: 'pmc-id-1' }
   ];
 
   let relations = [
     { source: 'unit', sourceId: 'unit-10' },
     { source: 'unit', sourceId: 'unit-11' },
     { source: 'unit-rateplan', sourceId: 'unit-12:rateplan-12' },
-    { source: 'pmcId', sourceId: 'pmc-id-1' }
+    { source: 'pmc', sourceId: 'pmc-id-1' }
   ];
 
   let transformedRelations = [
@@ -76,7 +76,7 @@ describe('Relations transform', () => {
         { source: 'unit', sourceId: 'unit-10' },
         { source: 'unit', sourceId: 'unit-11' },
         { source: 'unit-rateplan', sourceId: 'unit-12:rateplan-12' },
-        { source: 'pmcId', sourceId: 'pmc-id-1' }
+        { source: 'pmc', sourceId: 'pmc-id-1' }
       ];
     });
 
