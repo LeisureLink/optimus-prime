@@ -31,8 +31,7 @@ describe('Relations transform', () => {
   let transformedRelations = [
     { unitId: 'unit-10' },
     { unitId: 'unit-11' },
-    { unitId: 'unit-12', ratePlanId: 'rateplan-12' },
-    { pmcId: 'pmc-id-1' }
+    { unitId: 'unit-12', ratePlanId: 'rateplan-12' }
   ];
 
   describe('for storage', () => {

@@ -35,11 +35,6 @@ const fromStorageSourceMapping = {
       unitId: untransformedSource.sourceId.split(':')[sourceValueIndex.unitId],
       ratePlanId: untransformedSource.sourceId.split(':')[sourceValueIndex.ratePlanId]
     };
-  },
-  pmc: untransformedSource => {
-    return {
-      pmcId: untransformedSource.sourceId
-    };
   }
 };
 
@@ -53,6 +48,12 @@ let constructError = (statusCode, message) => {
 let errorMessages = {
   nullOrUndefined: 'array-cannot-be-null-or-undefined',
   unsupportedProperty: 'unsupported-property'
+};
+
+let removePmcId = relations => {
+  return relations.filter(relation => {
+    return relation.source !== 'pmc' ;
+  });
 };
 
 let forStorage = untransformedSourceList => {
@@ -71,6 +72,7 @@ let forStorage = untransformedSourceList => {
 let fromStorage = untransformedSourceList => {
   if(!untransformedSourceList)
     throw constructError(400, errorMessages.nullOrUndefined);
+  untransformedSourceList = removePmcId(untransformedSourceList);
   return untransformedSourceList.map(untransformedSource => {
     try {
       return fromStorageSourceMapping[untransformedSource.source](untransformedSource);
