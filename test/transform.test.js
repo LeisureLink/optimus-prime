@@ -7,32 +7,10 @@ let errorMessages = {
 };
 
 describe('Relations transform', () => {
-  let appliesTo = [
-    { unitId: 'unit-1' },
-    { unitId: 'unit-2' },
-    { unitId: 'unit-3', ratePlanId: 'rateplan-3' },
-    { pmcId: 'pmc-id-1' }
-  ];
-
-  let transformedAppliesTo = [
-    { source: 'unit', sourceId: 'unit-1' },
-    { source: 'unit', sourceId: 'unit-2' },
-    { source: 'unit-rateplan', sourceId: 'unit-3:rateplan-3' },
-    { source: 'pmc', sourceId: 'pmc-id-1' }
-  ];
-
-  let relations = [
-    { source: 'unit', sourceId: 'unit-10' },
-    { source: 'unit', sourceId: 'unit-11' },
-    { source: 'unit-rateplan', sourceId: 'unit-12:rateplan-12' },
-    { source: 'pmc', sourceId: 'pmc-id-1' }
-  ];
-
-  let transformedRelations = [
-    { unitId: 'unit-10' },
-    { unitId: 'unit-11' },
-    { unitId: 'unit-12', ratePlanId: 'rateplan-12' }
-  ];
+  let appliesTo;
+  let relations;
+  let transformedAppliesTo;
+  let transformedRelations;
 
   describe('for storage', () => {
     beforeEach(() => {
@@ -41,6 +19,13 @@ describe('Relations transform', () => {
         { unitId: 'unit-2' },
         { unitId: 'unit-3', ratePlanId: 'rateplan-3' },
         { pmcId: 'pmc-id-1' }
+      ];
+
+      transformedAppliesTo = [
+        { source: 'unit', sourceId: 'unit-1' },
+        { source: 'unit', sourceId: 'unit-2' },
+        { source: 'unit-rateplan', sourceId: 'unit-3:rateplan-3' },
+        { source: 'pmc', sourceId: 'pmc-id-1' }
       ];
     });
 
@@ -81,6 +66,12 @@ describe('Relations transform', () => {
         { source: 'unit', sourceId: 'unit-11' },
         { source: 'unit-rateplan', sourceId: 'unit-12:rateplan-12' },
         { source: 'pmc', sourceId: 'pmc-id-1' }
+      ];
+
+      transformedRelations = [
+        { unitId: 'unit-10' },
+        { unitId: 'unit-11' },
+        { unitId: 'unit-12', ratePlanId: 'rateplan-12' }
       ];
     });
 
