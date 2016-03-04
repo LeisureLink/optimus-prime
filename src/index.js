@@ -35,24 +35,30 @@ const fromStorageSourceMapping = {
       unitId: untransformedSource.sourceId.split(':')[sourceValueIndex.unitId],
       ratePlanId: untransformedSource.sourceId.split(':')[sourceValueIndex.ratePlanId]
     };
-  },
-  pmc: untransformedSource => {
-    return {
-      pmcId: untransformedSource.sourceId
-    };
   }
 };
 
-let constructError = (statusCode, message) => {
-  return {
+let constructError = (statusCode, message, cause) => {
+  let errorMessage = {
     statusCode,
     message
   };
+
+  if(cause)
+    errorMessage.cause = cause;
+
+  return errorMessage;
 };
 
 let errorMessages = {
   nullOrUndefined: 'array-cannot-be-null-or-undefined',
   unsupportedProperty: 'unsupported-property'
+};
+
+let removePmcId = relations => {
+  return relations.filter(relation => {
+    return relation.source !== 'pmc' ;
+  });
 };
 
 let forStorage = untransformedSourceList => {
@@ -63,7 +69,7 @@ let forStorage = untransformedSourceList => {
     try {
       return toStorageSourceMapping[uniqueKey](untransformedSource);
     } catch (err) {
-      throw constructError(400, errorMessages.unsupportedProperty);
+      throw constructError(400, errorMessages.unsupportedProperty, untransformedSource);
     }
   });
 };
@@ -71,11 +77,12 @@ let forStorage = untransformedSourceList => {
 let fromStorage = untransformedSourceList => {
   if(!untransformedSourceList)
     throw constructError(400, errorMessages.nullOrUndefined);
+  untransformedSourceList = removePmcId(untransformedSourceList);
   return untransformedSourceList.map(untransformedSource => {
     try {
       return fromStorageSourceMapping[untransformedSource.source](untransformedSource);
     } catch (err) {
-      throw constructError(400, errorMessages.unsupportedProperty);
+      throw constructError(400, errorMessages.unsupportedProperty, untransformedSource);
     }
   });
 };
