@@ -11,6 +11,7 @@ describe('Relations transform', () => {
   let relations;
   let transformedAppliesTo;
   let transformedRelations;
+  let expectedError;
 
   describe('for storage', () => {
     beforeEach(() => {
@@ -36,9 +37,19 @@ describe('Relations transform', () => {
 
     it('should return an error when array contains an unsupported property', () => {
       appliesTo.push({ 'unsupported-property': 'throw-error' });
+      expectedError = { statusCode: 400, message: errorMessages.unsupportedProperty, cause: appliesTo[4] };
+
       expect(() => {
         transform.forStorage(appliesTo);
-      }).to.throw({ statusCode: 400, message: errorMessages.unsupportedProperty });
+      }).to.throw();
+
+      try {
+        transform.forStorage(appliesTo);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+        expect(err.cause).to.eql(expectedError.cause);
+      }
     });
 
     it('should transform appliesTo correctly', () => {
@@ -47,15 +58,33 @@ describe('Relations transform', () => {
     });
 
     it('should throw a graceful error if appliesTo is null', () => {
+      expectedError = { statusCode: 400, message: errorMessages.nullOrUndefined };
+
       expect(() => {
         transform.forStorage(null);
-      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
+      }).to.throw();
+
+      try {
+        transform.forStorage(null);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+      }
     });
 
     it('should throw a graceful error if appliesTo is undefined', () => {
+      expectedError = { statusCode: 400, message: errorMessages.nullOrUndefined };
+
       expect(() => {
         transform.forStorage(undefined);
-      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
+      }).to.throw();
+
+      try {
+        transform.forStorage(undefined);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+      }
     });
   });
 
@@ -82,9 +111,19 @@ describe('Relations transform', () => {
 
     it('should return an error when array contains an unsupported property', () => {
       relations.push({ source: 'unsupported-property', sourceId: { badproperty: 'throw error' } });
+      expectedError = { statusCode: 400, message: errorMessages.unsupportedProperty, cause: relations[4] };
+
       expect(() => {
         transform.fromStorage(relations);
-      }).to.throw({ statusCode: 400, message: errorMessages.unsupportedProperty });
+      }).to.throw();
+
+      try {
+        transform.fromStorage(relations);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+        expect(err.cause).to.eql(expectedError.cause);
+      }
     });
 
     it('should transform relations correctly', () => {
@@ -93,15 +132,44 @@ describe('Relations transform', () => {
     });
 
     it('should throw a graceful error if relations is null', () => {
+      expectedError = { statusCode: 400, message: errorMessages.nullOrUndefined };
+
       expect(() => {
         transform.fromStorage(null);
-      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
+      }).to.throw();
+
+      try {
+        transform.fromStorage(null);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+      }
     });
 
     it('should throw a graceful error if relations is undefined', () => {
+      expectedError = { statusCode: 400, message: errorMessages.nullOrUndefined };
+
       expect(() => {
         transform.fromStorage(undefined);
-      }).to.throw({ statusCode: 400, message: errorMessages.nullOrUndefined });
+      }).to.throw();
+
+      try {
+        transform.fromStorage(undefined);
+      } catch(err){
+        expect(err.message).to.eql(expectedError.message);
+        expect(err.statusCode).to.eql(expectedError.statusCode);
+      }
+    });
+
+    it('should return an empty array when passed in a relations array with just a pmc source', () => {
+      let relations = [
+        { source: 'pmc', sourceId: 'pmc-id-1' }
+      ];
+
+      let result = transform.fromStorage(relations);
+
+      expect(!result.length).to.be.true;
+      expect(result).to.be.an.array;
     });
   });
 });

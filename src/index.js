@@ -38,11 +38,16 @@ const fromStorageSourceMapping = {
   }
 };
 
-let constructError = (statusCode, message) => {
-  return {
+let constructError = (statusCode, message, cause) => {
+  let errorMessage = {
     statusCode,
     message
   };
+
+  if(cause)
+    errorMessage.cause = cause;
+
+  return errorMessage;
 };
 
 let errorMessages = {
@@ -64,7 +69,7 @@ let forStorage = untransformedSourceList => {
     try {
       return toStorageSourceMapping[uniqueKey](untransformedSource);
     } catch (err) {
-      throw constructError(400, errorMessages.unsupportedProperty);
+      throw constructError(400, errorMessages.unsupportedProperty, untransformedSource);
     }
   });
 };
@@ -77,7 +82,7 @@ let fromStorage = untransformedSourceList => {
     try {
       return fromStorageSourceMapping[untransformedSource.source](untransformedSource);
     } catch (err) {
-      throw constructError(400, errorMessages.unsupportedProperty);
+      throw constructError(400, errorMessages.unsupportedProperty, untransformedSource);
     }
   });
 };
