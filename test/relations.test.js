@@ -1,5 +1,5 @@
 let expect = require('chai').expect;
-let transform = require('../src');
+let transform = require('../src').relations;
 
 let errorMessages = {
   nullOrUndefined: 'array-cannot-be-null-or-undefined',
