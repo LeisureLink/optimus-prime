@@ -8,8 +8,8 @@ let forStorage = (image, url, storageName) => {
     isDefault: image.isDefault,
     categories: image.categories,
     order: image.order,
-    url: url,
-    storageName: storageName
+    url: image.url ? image.url : url,
+    storageName: image.storageName ? image.storageName : storageName
   }
 };
 
