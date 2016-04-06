@@ -30,8 +30,8 @@ describe('Images transform', () => {
 
       it('should keep the same imageId and transform it to _id', () => {
         let transformedImage = transform.forStorage(image);
-        expect(transformedImage._id).to.not.be.undefined;
-        expect(transformedImage._id).to.eql(image.imageId);
+        expect(transformedImage._id).to.not.be.undefined; //eslint-disable-line no-underscore-dangle
+        expect(transformedImage._id).to.eql(image.imageId); //eslint-disable-line no-underscore-dangle
         expect(transformedImage.imageId).to.be.undefined;
       });
     });
@@ -63,8 +63,8 @@ describe('Images transform', () => {
 
       it('should use the imageId provided and transform it to _id', () => {
         let transformedImage = transform.forStorage(image, imageId, url);
-        expect(transformedImage._id).to.not.be.undefined;
-        expect(transformedImage._id).to.eql(imageId);
+        expect(transformedImage._id).to.not.be.undefined; //eslint-disable-line no-underscore-dangle
+        expect(transformedImage._id).to.eql(imageId); //eslint-disable-line no-underscore-dangle
         expect(transformedImage.imageId).to.be.undefined;
       });
     });
@@ -72,7 +72,7 @@ describe('Images transform', () => {
 
   describe('from storage', () => {
     let image = {
-      _id: 'E1eCGWGB0l',
+      _id: 'E1eCGWGB0l', //eslint-disable-line no-underscore-dangle
       unitId: '41ILk2qhg',
       fileName: '41ILk2qhg-E1eCGWGB0l.jpg',
       title: 'This is a title',
@@ -89,8 +89,8 @@ describe('Images transform', () => {
     it('should turn _id into imageId with the same value', () => {
       let transformedImage = transform.fromStorage(image);
 
-      expect(transformedImage.imageId).to.be.eql(image._id);
-      expect(transformedImage._id).to.be.undefined;
+      expect(transformedImage.imageId).to.be.eql(image._id); //eslint-disable-line no-underscore-dangle
+      expect(transformedImage._id).to.be.undefined; //eslint-disable-line no-underscore-dangle
     });
   });
 });

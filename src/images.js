@@ -1,6 +1,6 @@
 let forStorage = (image, imageId, url) => {
   return {
-    _id: image.imageId ? image.imageId : imageId,
+    _id: image.imageId ? image.imageId : imageId, //eslint-disable-line no-underscore-dangle
     unitId: image.unitId,
     fileName: image.fileName,
     title: image.title,
@@ -9,12 +9,12 @@ let forStorage = (image, imageId, url) => {
     categories: image.categories,
     order: image.order,
     url: image.url ? image.url : url
-  }
+  };
 };
 
 let fromStorage = (image) => {
   return {
-    imageId: image._id,
+    imageId: image._id, //eslint-disable-line no-underscore-dangle
     unitId: image.unitId,
     fileName: image.fileName,
     title: image.title,
@@ -23,7 +23,7 @@ let fromStorage = (image) => {
     categories: image.categories,
     order: image.order,
     url: image.url
-  }
+  };
 };
 
 module.exports = {
