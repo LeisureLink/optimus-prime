@@ -1,6 +1,6 @@
-let forStorage = (image, url, storageName) => {
+let forStorage = (image, imageId, url) => {
   return {
-    _id: image.imageId,
+    _id: image.imageId ? image.imageId : imageId,
     unitId: image.unitId,
     fileName: image.fileName,
     title: image.title,
@@ -8,8 +8,7 @@ let forStorage = (image, url, storageName) => {
     isDefault: image.isDefault,
     categories: image.categories,
     order: image.order,
-    url: image.url ? image.url : url,
-    storageName: image.storageName ? image.storageName : storageName
+    url: image.url ? image.url : url
   }
 };
 
@@ -23,8 +22,7 @@ let fromStorage = (image) => {
     isDefault: image.isDefault,
     categories: image.categories,
     order: image.order,
-    url: image.url,
-    storageName: image.storageName
+    url: image.url
   }
 };
 

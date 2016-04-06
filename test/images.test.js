@@ -4,34 +4,12 @@ let transform = require('../src').images;
 describe('Images transform', () => {
   let image;
   describe('for storage', () => {
-    it('should turn imageId into _id with the same value', () => {
-      image = {
-        imageId: 'E1eCGWGB0l',
-        unitId: '41ILk2qhg',
-        fileName: 'penny66.jpg',
-        title: 'This is a title',
-        description: 'This is a description',
-        isDefault: false,
-        categories: [
-          '1',
-          '2'
-        ],
-        order: 5,
-        url: 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media',
-        storageName: '41ILk2qhg-E1eCGWGB0l.jpg'
-      };
-
-      let transformedImage = transform.forStorage(image);
-      expect(transformedImage._id).to.be.eql(image.imageId);
-      expect(transformedImage.imageId).to.be.undefined;
-    });
-
-    describe('with predefined url or storageName', () => {
+    describe('with predefined url or imageId', () => {
       beforeEach(() => {
         image = {
           imageId: 'E1eCGWGB0l',
           unitId: '41ILk2qhg',
-          fileName: 'penny66.jpg',
+          fileName: '41ILk2qhg-E1eCGWGB0l.jpg',
           title: 'This is a title',
           description: 'This is a description',
           isDefault: false,
@@ -40,8 +18,7 @@ describe('Images transform', () => {
             '2'
           ],
           order: 5,
-          url: 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media',
-          storageName: '41ILk2qhg-E1eCGWGB0l.jpg'
+          url: 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media'
         };
       });
 
@@ -51,19 +28,19 @@ describe('Images transform', () => {
         expect(transformedImage.url).to.eql(image.url);
       });
 
-      it('should keep the same storageName value of the image', () => {
+      it('should keep the same imageId and transform it to _id', () => {
         let transformedImage = transform.forStorage(image);
-        expect(transformedImage.storageName).to.not.be.undefined;
-        expect(transformedImage.storageName).to.eql(image.storageName);
+        expect(transformedImage._id).to.not.be.undefined;
+        expect(transformedImage._id).to.eql(image.imageId);
+        expect(transformedImage.imageId).to.be.undefined;
       });
     });
 
-    describe('without predefined url or storageName', () => {
+    describe('without predefined url or imageId', () => {
       beforeEach(() => {
         image = {
-          imageId: 'E1eCGWGB0l',
           unitId: '41ILk2qhg',
-          fileName: 'penny66.jpg',
+          fileName: '41ILk2qhg-E1eCGWGB0l.jpg',
           title: 'This is a title',
           description: 'This is a description',
           isDefault: false,
@@ -76,18 +53,19 @@ describe('Images transform', () => {
       });
 
       let url = 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media';
-      let storageName = '41ILk2qhg-E1eCGWGB0l.jpg';
+      let imageId = 'E1eCGWGB0l';
 
       it('should add the url to the image if the url was not provided in the image object', () => {
-        let transformedImage = transform.forStorage(image, url, storageName);
+        let transformedImage = transform.forStorage(image, imageId, url);
         expect(transformedImage.url).to.not.be.undefined;
         expect(transformedImage.url).to.be.eql(url);
       });
 
-      it('should add the storageName to the image if the storageName was not provided in the image object', () => {
-        let transformedImage = transform.forStorage(image, url, storageName);
-        expect(transformedImage.storageName).to.not.be.undefined;
-        expect(transformedImage.storageName).to.be.eql(storageName);
+      it('should use the imageId provided and transform it to _id', () => {
+        let transformedImage = transform.forStorage(image, imageId, url);
+        expect(transformedImage._id).to.not.be.undefined;
+        expect(transformedImage._id).to.eql(imageId);
+        expect(transformedImage.imageId).to.be.undefined;
       });
     });
   });
@@ -96,7 +74,7 @@ describe('Images transform', () => {
     let image = {
       _id: 'E1eCGWGB0l',
       unitId: '41ILk2qhg',
-      fileName: 'penny66.jpg',
+      fileName: '41ILk2qhg-E1eCGWGB0l.jpg',
       title: 'This is a title',
       description: 'This is a description',
       isDefault: false,
@@ -105,8 +83,7 @@ describe('Images transform', () => {
         '2'
       ],
       order: 5,
-      url: 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media',
-      storageName: '41ILk2qhg-E1eCGWGB0l.jpg'
+      url: 'https://www.googleapis.com/download/storage/v1/b/ll-prd-media/o/41ILk2qhg-E1eCGWGB0l.jpg?generation=1459364350151000&alt=media'
     };
 
     it('should turn _id into imageId with the same value', () => {

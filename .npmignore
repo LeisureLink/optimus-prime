@@ -3,6 +3,7 @@
 .editorconfig
 .eslint*
 .gitignore
+.DS_Store
 circle.yml
 wallaby.js
 src/
