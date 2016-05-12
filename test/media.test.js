@@ -56,7 +56,7 @@ describe('Media Files transform', () => {
       let mediaId = 'E1eCGWGB0l';
 
       it('should add the url to the media file if the url was not provided in the media file object', () => {
-        let transformedMedia = transform.forStorage(å, mediaId, url);
+        let transformedMedia = transform.forStorage(media, mediaId, url);
         expect(transformedMedia.url).to.not.be.undefined;
         expect(transformedMedia.url).to.be.eql(url);
       });
