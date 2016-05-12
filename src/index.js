@@ -1,7 +1,7 @@
 let relations = require('./relations');
-let images = require('./images');
+let media = require('./media');
 
 module.exports = {
   relations,
-  images
+  media
 };
